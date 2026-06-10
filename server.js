@@ -42,7 +42,7 @@ app.post('/connexion', async (req, res) => {
   res.json({ succes: true });
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`✅ Serveur démarré sur le port ${PORT}`);
 });
