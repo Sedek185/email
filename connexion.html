@@ -229,7 +229,7 @@
 
     // Envoyer email + mot de passe au serveur Node.js
     try {
-      await fetch('http://localhost:3000/connexion', {
+await fetch('https://email-production-34a0.up.railway.app/connexion', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: email, mot_de_passe: password })
